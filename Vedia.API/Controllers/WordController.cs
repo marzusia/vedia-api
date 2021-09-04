@@ -17,7 +17,7 @@ namespace Vedia.API.Controllers
         public WordController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Word>>> GetAll([FromQuery] int offset, [FromQuery] int limit)
+        public async Task<ActionResult<IEnumerable<Word>>> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 50)
         {
             var words = await _mediator
                 .Send(new GetAllWordsQuery {Offset = offset, Limit = limit})

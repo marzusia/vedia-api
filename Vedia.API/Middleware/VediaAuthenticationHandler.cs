@@ -20,8 +20,7 @@ namespace Vedia.API.Middleware
         {
             _profileService = profileService;
         }
-
-
+        
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
             if (!Request.Headers.ContainsKey("Authorization"))
