@@ -10,13 +10,17 @@ namespace Vedia.API.Models
         public string Gloss { get; set; }
     }
 
+    public class Etymon
+    {
+        public string SourceLanguage { get; set; }
+        public string Word { get; set; }
+        public string ExternalLink { get; set; }
+    }
+
     public class Etymology
     {
-        public string Source { get; set; }
-        public string Etymon { get; set; }
-        public string EtymonRoot { get; set; }
-        public string Link { get; set; }
-        public string Notes { get; set; }
+        public string Note { get; set; }
+        public IEnumerable<Etymon> Etyma { get; set; }
     }
     
     public class Sense
