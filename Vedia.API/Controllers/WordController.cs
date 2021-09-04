@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vedia.API.Commands;
 using Vedia.API.Models;
@@ -24,6 +25,7 @@ namespace Vedia.API.Controllers
             return Ok(words);
         }
 
+        [Authorize(Roles="Language")]
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] Word word)
         {

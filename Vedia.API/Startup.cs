@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Vedia.API.Middleware;
 using Vedia.API.Services;
 using Vedia.API.Services.Runnable;
 
@@ -34,6 +36,10 @@ namespace Vedia.API
                         .AllowAnyOrigin();
                 });
             });
+
+            services.AddAuthentication("VediaAuthentication")
+                .AddScheme<AuthenticationSchemeOptions, VediaAuthenticationHandler>("VediaAuthentication",null);
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -70,11 +76,10 @@ namespace Vedia.API
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "Vedia.API v1"));
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
             app.UseCors("corsPolicy");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
