@@ -1,20 +1,18 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using Vedia.API.Models;
 
 namespace Vedia.API.Services
 {
-    public class WordService
+    public class ProfileService
     {
-        public IMongoCollection<Word> Words { get; }
-        
-        public WordService(IConfiguration configuration)
+        public IMongoCollection<Profile> Profiles { get; }
+
+        public ProfileService(IConfiguration configuration)
         {
             var client = new MongoClient(configuration.GetSection("MongoDB")["ConnectionString"]);
             var database = client.GetDatabase(configuration.GetSection("MongoDB")["DatabaseName"]);
-            Words = database.GetCollection<Word>("Words");
+            Profiles = database.GetCollection<Profile>("Profiles");
         }
     }
 }
